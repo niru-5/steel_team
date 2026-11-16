@@ -1,0 +1,15 @@
+# Camera calibration input for local_dm/calibrate_camera.py. All positions are in the
+# ROBOT BASE FRAME, in metres: origin = joint-1 axis at the base mounting plane,
+# +x straight ahead of the arm, +y to the arm's left, +z up.
+
+table_z: 0.0          # height of the table surface (where the sheet lies) above the base plane
+
+sheet:                # the printed A4 sheet: where its two crosses are
+  A: [0.400, 0.134]   # cross "A" (top of the page)
+  B: [0.400, -0.133]  # cross "B" (bottom of the page)
+
+# Optional extra markers (same dictionary, DICT_4X4_50, ids 6..49) placed anywhere on the
+# table; give the position of each marker's CENTRE. A wider spread improves accuracy.
+# markers:
+#   6: [0.20, -0.20]
+#   7: [0.20, 0.20]

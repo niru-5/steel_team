@@ -1,0 +1,25 @@
+# Overhead RGB-D camera of the DM physics sim (Seeed MJCF `overhead_rgb`: 0.86 m above
+# the table centre, looking straight down, 640x480, fovy 50 deg), served by the DM bridge.
+type: dm_bridge
+camera: overhead_rgb
+fps: 15
+bridge:
+  host: 127.0.0.1
+  port: 9881
+
+# Real open-vocabulary detection on the rendered image (no mock detector here).
+# yoloe-26l finds the sim objects reliably; 26s misses them on this top-down render.
+detector:
+  type: yoloe
+  model: ${repo}/models/yoloe-26l-seg.pt
+  device: cpu
+  conf: 0.15
+
+extrinsics:
+  mode: eye_to_hand
+  # camera (OpenCV: x right, y down, z forward) -> robot base. Exact for the sim camera.
+  T:
+    - [1.0,  0.0,  0.0, 0.42]
+    - [0.0, -1.0,  0.0, 0.00]
+    - [0.0,  0.0, -1.0, 0.86]
+    - [0.0,  0.0,  0.0, 1.00]

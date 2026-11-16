@@ -1,0 +1,21 @@
+# reBot Arm B601-DM behind the local DM bridge (hackathon DM port, see local_dm/README.md). Same profile for sim and real arm: the bridge server decides (--robot sim or --robot real).
+# The bridge (local_dm/dm_bridge_server.py) is either the MuJoCo PHYSICS sim of the
+# DM arm (verified) or the real arm via LeRobot (untested). Needs
+# local_dm.wrc_dm_plugin.register() -- use local_dm/run_dm.py / ./START_WRC.sh dm.
+type: rebot_dm_bridge
+# Seeed's DM URDF + a WRC `gripper_end` tool frame (local_dm/make_dm_urdf.py).
+urdf: ${repo}/local_dm/assets/ReBot_Arm_DM_wrc.urdf
+ee_frame: gripper_end
+n_joints: 6
+# Pulled back + raised (TCP ~(0.34, 0, 0.52)) so the open gripper does not hide the table from the overhead camera.
+home_q: [0.0, -1.3, -2.0, 1.0, 0.0, 0.0]
+settle_tol_rad: 0.02
+
+bridge:
+  host: 127.0.0.1
+  port: 9881
+
+gripper:
+  open_pos: 0.0        # WRC-side convention: close-fraction 0 (open) .. 1 (closed)
+  closed_pos: 1.0
+  max_width_m: 0.091   # jaw gap fully open (DM MJCF finger geometry)

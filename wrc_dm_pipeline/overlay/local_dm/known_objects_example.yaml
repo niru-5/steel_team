@@ -1,0 +1,27 @@
+# Known object sizes for local_dm/run_dm.py --known-objects <this file>.
+#
+# Measure each object ONCE with a ruler and write it down here. When the cameras find an
+# object whose detector name is in `labels` AND whose measured size is close to an entry
+# (height within 3 cm or 30 %, width within 2.5 cm or 35 %), the robot uses the entry's exact
+# size instead of the measured one. The cameras still decide WHERE the object stands.
+# If nothing fits, the measured size is used.
+#
+#   height_m      height above the table
+#   width_m       widest width (for a cup: the rim)
+#   base_width_m  optional: width at the bottom, if different (helps when only one camera sees it)
+#   labels        every name the detector may give this object (see the "camera sees" line at start-up)
+#
+# The numbers below are the SIMULATOR's can and cup (steel_team simulation/rebot_sim/real_setup.json),
+# not your real ones. Replace them with your own measurements.
+
+objects:
+  - name: can
+    labels: [red cup, can, cup]
+    height_m: 0.130
+    width_m: 0.045
+
+  - name: cup
+    labels: [cup, red cup]
+    height_m: 0.110
+    width_m: 0.090
+    base_width_m: 0.060
